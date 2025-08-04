@@ -1,3 +1,5 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '8.14.3'
+// wrapper.gradle
+wrapper {
+    gradleVersion = '8.14.3'      // desired Gradle version
+    // distributionType = Wrapper.DistributionType.BIN   // optional
 }
