@@ -1,0 +1,2 @@
+rootProject.name = 'ciss-das-backend'
+include 'ciss-server', 'ciss-daemon-server', 'ciss-api', 'ciss-batch', 'fescaro-solution'
