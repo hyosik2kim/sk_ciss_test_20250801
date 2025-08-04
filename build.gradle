@@ -1,23 +1,23 @@
-plugins {
-    id 'org.springframework.boot' version '3.2.5' apply false
-    id 'io.spring.dependency-management' version '1.1.5' apply false
+buildscript {
+    ext {
+        springBootVersion = '2.6.3'
+    }
+}
+repositories {
+    mavenCentral()
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
 }
 
 subprojects {
-    repositories {
-        mavenCentral()
-    }
+    apply plugin: 'java'
 
-    plugins.withId('java') {
-        dependencies {
-            implementation 'org.springframework.boot:spring-boot-starter'
-            testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        }
-    }
-
-    plugins.withId('org.springframework.boot') {
-        tasks.named('bootJar') {
-            enabled = false
-        }
-    }
+    group = 'com.fescaro.ciss'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
 }
