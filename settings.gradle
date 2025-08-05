@@ -1,2 +1,14 @@
+pluginManagement {
+    plugins {
+        id 'org.springframework.boot' version '2.6.3' apply false
+        id 'io.spring.dependency-management' version '1.0.11.RELEASE' apply false
+    }
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+
+
 rootProject.name = 'ciss-das-backend'
 include 'ciss-server', 'ciss-daemon-server', 'ciss-api', 'ciss-batch', 'fescaro-solution'
