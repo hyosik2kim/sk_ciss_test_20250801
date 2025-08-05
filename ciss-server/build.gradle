@@ -15,6 +15,9 @@ dependencies {
     // Redis 연동 (StringRedisTemplate 포함)
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+    // MongoDB 연동 (로컬 개발용)
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
     // (선택) Lombok 같은 유틸
     // compileOnly 'org.projectlombok:lombok'
     // annotationProcessor 'org.projectlombok:lombok'
