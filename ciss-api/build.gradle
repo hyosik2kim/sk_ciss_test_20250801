@@ -1,9 +1,14 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot'
-    id 'io.spring.dependency-management'
+    id 'org.springframework.boot'           // settings.gradle 의 2.6.3 을 자동으로 가져옴
+    id 'io.spring.dependency-management'    // settings.gradle 의 1.0.11.RELEASE 을 자동으로 가져옴
 }
 
 dependencies {
     // module-specific dependencies can be added here
+}
+
+repositories {
+  mavenCentral()
+  maven { url 'https://jitpack.io' }
 }

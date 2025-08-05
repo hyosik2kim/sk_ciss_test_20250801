@@ -5,6 +5,7 @@ pluginManagement {
     }
     repositories {
         gradlePluginPortal()
+        maven { url 'https://repo.spring.io/release' } // ☞ Spring 플러그인 마커가 여기 있음
         mavenCentral()
     }
 }

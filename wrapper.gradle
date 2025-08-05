@@ -1,5 +1,5 @@
 // wrapper.gradle
 wrapper {
-    gradleVersion = '8.4'      // desired Gradle version
+    gradleVersion = '7.4'      // desired Gradle version
     // distributionType = Wrapper.DistributionType.BIN   // optional
 }
