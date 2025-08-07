@@ -1,3 +1,6 @@
 .gradle/
 build/
 */build/
+
+# 에디터 설정
+/.vscode
