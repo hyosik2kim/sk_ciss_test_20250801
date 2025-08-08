@@ -3,21 +3,13 @@
 import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from dotenv import load_dotenv
 from SCARAnalyzer import SCARAnalyzer
 from SCARCategorizer import SCARCategorizer
 from SCARSummarizer import SCARSummarizer
 from SCARCommon import Config, LogList, Analyzed, setLogPath, getLogFiles
 
-load_dotenv()
-
 app = Flask(__name__)
-#CORS(app) 
-allowed_origins = os.getenv("CORS_ORIGINS")
-if allowed_origins:
-    CORS(app, resources={r"/*": {"origins": [o.strip() for o in allowed_origins.split(",")]}})
-else:
-    CORS(app)
+CORS(app) 
 # 클래스 인스턴스 초기화
 analyzer = SCARAnalyzer()
 categorizer = SCARCategorizer()
@@ -107,7 +99,4 @@ def summarize():
 
 # === 서버 실행 ===
 if __name__ == '__main__':
-    #app.run(host='0.0.0.0', port=5000)
-    port = int(os.getenv('PORT', 5000))
-    debug = os.getenv('FLASK_DEBUG', 'false').lower() in ('true', '1', 'yes')
-    app.run(host='0.0.0.0', port=port, debug=debug)
+    app.run(host='0.0.0.0', port=5000)

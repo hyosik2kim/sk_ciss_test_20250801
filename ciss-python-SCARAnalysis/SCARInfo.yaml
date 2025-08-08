@@ -1,0 +1,7 @@
+DETAIL_FILE: DetailResult.xlsx
+DST_FILE: _result.log
+LOG_EXT: .log
+LOG_NAME: _sys
+LOG_PATH: /mnt/c/W3/logs/sysLog/202507
+SITE_FILE: ./SiteList.xlsx
+ZIP_EXT: .zip

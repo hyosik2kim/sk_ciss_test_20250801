@@ -10,6 +10,8 @@ from openpyxl import load_workbook
 from parse import *
 from typing import Dict
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 class LogElement(object):
     TIME    = 0
     MESSAGE = 1
@@ -506,7 +508,7 @@ def loadSiteList():
 
 def getConfig():
     try:
-        configPath = os.path.join(os.getcwd(), 'src/pyScript/SCARInfo.yaml')
+        configPath = os.path.join(BASE_DIR, 'SCARInfo.yaml')
 
         with open(configPath) as f:
             config = yaml.safe_load(f)
@@ -524,7 +526,7 @@ def getConfig():
 
 def setLogPath(path):
     try:
-        configPath = os.path.join(os.getcwd(), 'src/pyScript/SCARInfo.yaml')
+        configPath = os.path.join(BASE_DIR, 'SCARInfo.yaml')
 
         with open(configPath) as f:
             config = yaml.safe_load(f)

@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import pyApi from '@/lib/pyApiClient'
 
 export default function AnalysisPage() {
   const [folder, setFolder] = useState('')
@@ -8,6 +9,7 @@ export default function AnalysisPage() {
   const [dstFiles, setDstFiles] = useState<string[]>([])
 
   const callApi = async (endpoint: string, body?: any) => {
+    /* blocked original fetch 250807
     const res = await fetch(`http://localhost:5000${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -19,7 +21,9 @@ export default function AnalysisPage() {
       throw new Error(err)
     }
 
-    return res.json()
+    return res.json()*/
+    const res = await pyApi.post(endpoint, body)
+    return res.data
   }
 
   const handleSelectFolder = async () => {
