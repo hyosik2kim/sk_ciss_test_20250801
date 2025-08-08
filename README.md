@@ -15,5 +15,20 @@ All services share Redis settings via `application.yml` and include a `/health` 
 
 ## Running tests
 ```
+```bash
 ./gradlew test
 ```
+
+## Configuring the Python script environment
+
+Copy the example environment file for the Python scripts:
+
+```bash
+cp ciss-front-end/src/pyScript/.env.example ciss-front-end/src/pyScript/.env
+```
+
+Then edit `ciss-front-end/src/pyScript/.env` and set the following values:
+
+- `CORS_ORIGINS` – allowed origins for CORS requests.
+- `PORT` – port number for the Flask server.
+- `FLASK_DEBUG` – `1` to enable Flask debug mode, `0` to disable.
