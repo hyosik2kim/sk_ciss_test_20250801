@@ -12,7 +12,7 @@ from typing import Any, Dict, List, Optional
 
 from bson import ObjectId
 
-from mongodb import get_collection
+from mongodb import get_collection, is_db_enabled
 
 
 def _parse_date(value: Optional[str]) -> Optional[datetime]:
@@ -69,6 +69,8 @@ def get_charging_page_data(
 ) -> Dict[str, Any]:
     """Return paginated monitoring documents along with full data for statistics."""
 
+    if not is_db_enabled():
+        return {"entries": [], "totalCount": 0, "allEntriesForStats": []}
     coll = get_collection()
     query = _build_common_query(serial_nos, start, end)
     query["$or"] = [
@@ -105,6 +107,8 @@ def get_errors(
 ) -> Dict[str, Any]:
     """Return monitoring documents containing non-zero error codes."""
 
+    if not is_db_enabled():
+        return {"errors": [], "totalCount": 0}
     coll = get_collection()
     query = _build_common_query(serial_nos, start, end)
     query["ERR-CODE"] = {"$ne": "0", "$nin": [None, ""]}
@@ -126,6 +130,8 @@ def get_overall_error_statistics(
 ) -> Dict[str, Any]:
     """Aggregate error counts by error code."""
 
+    if not is_db_enabled():
+        return {"totalErrors": 0, "uniqueErrorCodes": 0, "errorCodeCounts": {}}
     coll = get_collection()
     match = _build_common_query(serial_nos, start, end)
     match.update({
@@ -178,6 +184,8 @@ def get_charging_sessions(
 ) -> List[List[Dict[str, Any]]]:
     """Return session-separated monitoring rows similar to the former front-end implementation."""
 
+    if not is_db_enabled():
+        return []
     coll = get_collection()
     query = _build_common_query(serial_nos, start, end)
     raw_entries = list(coll.find(query).sort("generatedAt", 1))
