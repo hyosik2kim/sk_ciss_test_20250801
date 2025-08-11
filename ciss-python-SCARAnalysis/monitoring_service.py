@@ -12,7 +12,7 @@ from typing import Any, Dict, List, Optional
 
 from bson import ObjectId
 
-from .mongodb import get_collection
+from mongodb import get_collection
 
 
 def _parse_date(value: Optional[str]) -> Optional[datetime]:
