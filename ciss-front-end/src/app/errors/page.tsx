@@ -6,8 +6,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { exportErrorDataToExcel } from '@/lib/exportExcel';
 
-// 백엔드 API를 호출하는 함수들 (src/lib/actions.ts에 정의됨)
-import { getErrors, getOverallErrorStatistics } from '@/lib/actions';
+// 백엔드 API를 호출하는 함수들 (src/lib/pycissApi.ts에 정의됨)
+import { getErrors, getOverallErrorStatistics } from '@/lib/pycissApi';
 
 // 타입 정의 (src/types/monitoring_status.ts에 정의됨)
 import { MonitoringEntry, MonitoringStatistics } from '@/types/monitoring_status';
@@ -57,7 +57,7 @@ export default function ErrorsPage() {
     }
 
     try {
-      // lib/actions.ts의 getErrors 함수 호출
+      // pycissApi.ts의 getErrors 함수 호출
       const { errors: fetchedErrors, totalCount } = await getErrors(
         filteredSerialNos.length > 0 ? filteredSerialNos : null,
         startDate,
@@ -91,7 +91,7 @@ export default function ErrorsPage() {
     }
 
     try {
-      // lib/actions.ts의 getOverallErrorStatistics 함수 호출
+      // lib/pycissApi.ts의 getOverallErrorStatistics 함수 호출
       const stats = await getOverallErrorStatistics(
         filteredSerialNos.length > 0 ? filteredSerialNos : null,
         startDate,

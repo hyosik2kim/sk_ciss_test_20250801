@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { getChargingSessions } from '@/lib/actions';
+import { getChargingSessions } from '@/lib/pycissApi';
 import ChargingSessionTable from '@/components/ChargingSessionTable';
 import { SCARData, SCARErrorCodeEntry} from '@/types/monitoring_status';
 import { calculateSCAR } from '@/lib/analysis_utils';

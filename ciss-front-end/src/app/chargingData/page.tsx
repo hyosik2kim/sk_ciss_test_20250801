@@ -5,7 +5,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { getChargingPageData } from '@/lib/actions'; // 서버 액션 함수
+import { getChargingPageData } from '@/lib/pycissApi';
 import { calculateChargingSuccessRate } from '@/lib/analysis_utils';
 
 import ChargingSuccessRateTable from '@/components/ChargingSuccessRateTable';
