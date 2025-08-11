@@ -7,6 +7,12 @@ from SCARAnalyzer import SCARAnalyzer
 from SCARCategorizer import SCARCategorizer
 from SCARSummarizer import SCARSummarizer
 from SCARCommon import Config, LogList, Analyzed, setLogPath, getLogFiles
+from monitoring_service import (
+    get_charging_page_data,
+    get_errors,
+    get_overall_error_statistics,
+    get_charging_sessions,
+)
 
 app = Flask(__name__)
 CORS(app) 
@@ -95,6 +101,57 @@ def summarize():
         'status': 'summarize_completed',
         'result': result
     })
+
+
+@app.route('/monitoring/charging-page', methods=['POST'])
+def monitoring_charging_page():
+    data = request.get_json() or {}
+    result = get_charging_page_data(
+        data.get('serialNos'),
+        data.get('startDate'),
+        data.get('endDate'),
+        data.get('page', 1),
+        data.get('limit', 15),
+    )
+    return jsonify(result)
+
+
+@app.route('/monitoring/sessions', methods=['POST'])
+def monitoring_sessions():
+    data = request.get_json() or {}
+    result = get_charging_sessions(
+        data.get('serialNos'),
+        data.get('startDate'),
+        data.get('endDate'),
+        data.get('errorCodes'),
+    )
+    return jsonify(result)
+
+
+@app.route('/monitoring/errors', methods=['POST'])
+def monitoring_errors():
+    data = request.get_json() or {}
+    result = get_errors(
+        data.get('serialNos'),
+        data.get('startDate'),
+        data.get('endDate'),
+        data.get('page'),
+        data.get('limit'),
+        data.get('fetchAll', False),
+    )
+    return jsonify(result)
+
+
+@app.route('/monitoring/error-stats', methods=['POST'])
+def monitoring_error_stats():
+    data = request.get_json() or {}
+    result = get_overall_error_statistics(
+        data.get('serialNos'),
+        data.get('startDate'),
+        data.get('endDate'),
+    )
+    return jsonify(result)
+
 
 
 # === 서버 실행 ===

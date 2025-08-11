@@ -4,3 +4,4 @@ chardet
 parse
 openpyxl
 PyYAML
+pymongo
