@@ -16,7 +16,9 @@ services:
       - ciss-net
 
   ciss-server:
-    build: ./ciss-server
+    build: 
+      context : .
+      dockerfile : ciss-server/Dockerfile
     ports:
       - "8085:8085"
     environment:
@@ -28,7 +30,9 @@ services:
       - ciss-net
 
   ciss-api:
-    build: ./ciss-api
+    build: 
+      context : .
+      dockerfile : ciss-api/Dockerfile
     ports:
       - "8081:8081"
     environment:
@@ -40,7 +44,9 @@ services:
       - ciss-net
 
   ciss-daemon-server:
-    build: ./ciss-daemon-server
+    build: 
+      context: .
+      dockerfile : ciss-daemon-server/Dockerfile
     ports:
       - "8087:8087"
     environment:
@@ -52,7 +58,9 @@ services:
       - ciss-net
 
   ciss-batch:
-    build: ./ciss-batch
+    build: 
+      context: .
+      dockerfile : ciss-batch/Dockerfile
     ports:
       - "8083:8083"
     environment:
@@ -64,7 +72,9 @@ services:
       - ciss-net
 
   ciss-fescaro-solution:
-    build: ./ciss-fescaro-solution
+    build: 
+      context : .
+      dockerfile : ciss-fescaro-solution/Dockerfile
     ports:
       - "8082:8082"
     environment:
@@ -76,7 +86,9 @@ services:
       - ciss-net
 
   ciss-front-end:
-    build: ./ciss-front-end
+    build: 
+      context : .
+      dockerfile : ciss-front-end/Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -87,7 +99,9 @@ services:
       - ciss-net
 
   ciss-python-scaranalysis:
-    build: ./ciss-python-scaranalysis
+    build: 
+      context : .
+      dockerfile : ciss-python-scaranalysis/Dockerfile
     ports:
       - "5000:5000"
     environment:
