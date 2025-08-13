@@ -87,8 +87,8 @@ services:
 
   ciss-front-end:
     build: 
-      context : .
-      dockerfile : ciss-front-end/Dockerfile
+      context : ciss-front-end/
+      dockerfile : Dockerfile
     ports:
       - "3000:3000"
     environment:
@@ -100,8 +100,8 @@ services:
 
   ciss-python-scaranalysis:
     build: 
-      context : .
-      dockerfile : ciss-python-scaranalysis/Dockerfile
+      context : ciss-python-scaranalysis/
+      dockerfile : Dockerfile
     ports:
       - "5000:5000"
     environment:
