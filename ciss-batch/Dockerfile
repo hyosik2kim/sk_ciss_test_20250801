@@ -1,5 +1,5 @@
 # Build the batch module jar
-FROM gradle:7.4.2-jdk17 AS build
+FROM gradle:7.4-jdk17 AS build
 WORKDIR /workspace
 COPY . /workspace
 RUN gradle :ciss-batch:bootJar --no-daemon

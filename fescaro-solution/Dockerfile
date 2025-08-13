@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Build stage
-FROM gradle:7.4-jdk11 AS build
+FROM gradle:7.4-jdk17 AS build
 WORKDIR /home/gradle/project
 
 # Copy Gradle wrapper and settings

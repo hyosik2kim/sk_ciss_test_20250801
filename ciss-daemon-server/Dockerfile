@@ -1,5 +1,5 @@
 # Build stage: compile the application using Gradle
-FROM gradle:8.7-jdk17 AS build
+FROM gradle:7.4-jdk17 AS build
 WORKDIR /home/gradle/project
 
 # Copy Gradle wrapper and project files
