@@ -1,0 +1,102 @@
+version: "3.9"
+
+services:
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"
+    networks:
+      - ciss-net
+
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    networks:
+      - ciss-net
+
+  ciss-server:
+    build: ./ciss-server
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - ciss-net
+
+  ciss-api:
+    build: ./ciss-api
+    ports:
+      - "8081:8081"
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - ciss-net
+
+  ciss-daemon-server:
+    build: ./ciss-daemon-server
+    ports:
+      - "8087:8087"
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - ciss-net
+
+  ciss-batch:
+    build: ./ciss-batch
+    ports:
+      - "8083:8083"
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - ciss-net
+
+  ciss-fescaro-solution:
+    build: ./ciss-fescaro-solution
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+    depends_on:
+      - redis
+    networks:
+      - ciss-net
+
+  ciss-front-end:
+    build: ./ciss-front-end
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+    networks:
+      - ciss-net
+
+  ciss-python-SCARAnalysis:
+    build: ./ciss-python-SCARAnalysis
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017
+    depends_on:
+      - mongodb
+    networks:
+      - ciss-net
+
+networks:
+  ciss-net:
+    driver: bridge
