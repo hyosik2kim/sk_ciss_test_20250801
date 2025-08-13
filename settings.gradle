@@ -12,4 +12,4 @@ pluginManagement {
 
 
 rootProject.name = 'ciss-das-backend'
-include 'ciss-server', 'ciss-daemon-server', 'ciss-api', 'ciss-batch', 'fescaro-solution'
+include 'ciss-server', 'ciss-daemon-server', 'ciss-api', 'ciss-batch', 'ciss-fescaro-solution', 'ciss-front-end', 'ciss-python-scaranalysis'
