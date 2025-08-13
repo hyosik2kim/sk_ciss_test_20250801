@@ -11,8 +11,8 @@ COPY gradlew settings.gradle build.gradle ./
 # Copy module sources
 COPY ciss-fescaro-solution ciss-fescaro-solution
 
-# Build the Spring Boot jar
-RUN ./gradlew :ciss-fescaro-solution:bootJar --no-daemon
+# Build the Spring Boot jar using the Gradle installation from the base image
+RUN gradle :ciss-fescaro-solution:bootJar --no-daemon
 
 # Runtime stage
 FROM eclipse-temurin:11-jre-jammy
