@@ -49,3 +49,10 @@ export MONGODB_URI="mongodb://localhost:27017"
 ```
 
 The service raises a `RuntimeError` if `MONGODB_URI` is not set.
+## Kubernetes Deployment
+
+Kubernetes manifests mirroring the `docker-compose.yml` services are available under `k8s/`. Deploy the entire stack with:
+
+```bash
+kubectl apply -f k8s/
+```

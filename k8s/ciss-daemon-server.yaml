@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ciss-daemon-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ciss-daemon-server
+  template:
+    metadata:
+      labels:
+        app: ciss-daemon-server
+    spec:
+      containers:
+      - name: ciss-daemon-server
+        image: ciss-daemon-server:latest
+        ports:
+        - containerPort: 8087
+        env:
+        - name: SPRING_REDIS_HOST
+          value: redis
+        - name: SPRING_REDIS_PORT
+          value: "6379"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ciss-daemon-server
+spec:
+  selector:
+    app: ciss-daemon-server
+  ports:
+  - port: 8087
+    targetPort: 8087

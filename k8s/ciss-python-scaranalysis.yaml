@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ciss-python-scaranalysis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ciss-python-scaranalysis
+  template:
+    metadata:
+      labels:
+        app: ciss-python-scaranalysis
+    spec:
+      containers:
+      - name: ciss-python-scaranalysis
+        image: ciss-python-scaranalysis:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGODB_URI
+          value: mongodb://mongodb:27017
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ciss-python-scaranalysis
+spec:
+  selector:
+    app: ciss-python-scaranalysis
+  ports:
+  - port: 5000
+    targetPort: 5000
