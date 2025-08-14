@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ciss-ingress
+spec:
+  ingressClassName: nginx     # ✅ 최신 필드 사용
+  rules:
+    - http:
+        paths:
+          # /api로 시작하는 요청은 ciss-api:8081로
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: ciss-api
+                port:
+                  number: 8081
+
+          # 그 외 모든 요청은 프론트엔드로
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: ciss-front-end
+                port:
+                  number: 3000

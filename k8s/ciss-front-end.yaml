@@ -27,10 +27,9 @@ kind: Service
 metadata:
   name: ciss-front-end
 spec:
-  type : NodePort
+  type : ClusterIP
   selector:
     app: ciss-front-end
   ports:
   - port: 3000
     targetPort: 3000
-    nodePort: 30080   # (원하면 고정) 호스트에서 접근할 포트
