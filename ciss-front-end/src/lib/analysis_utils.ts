@@ -2,8 +2,7 @@
 
 import { MonitoringEntry, ChargingSuccessRateData, SCARData } from '@/types/monitoring_status';
 
-export interface SessionRow {
-  [key: string]: any;
+export interface SessionRow extends Record<string, unknown> {
   isShortSession?: boolean;
   isUserFailL?: boolean;
   isServerFailL?: boolean;
@@ -11,8 +10,8 @@ export interface SessionRow {
   isEVSEFailL?: boolean;
   isUserFailR?: boolean;
   isServerFailR?: boolean;
-  isEVailLR: boolean;
-  isEVSEFailLR: boolean;
+  isEVailLR?: boolean;
+  isEVSEFailLR?: boolean;
 }
 
 /**
@@ -108,7 +107,7 @@ export function calculateSCAR(sessions: SessionRow[][]): SCARData {
 
   for (const session of sessions) {
     if (!session.length) continue;
-    const dpState = (session[0]["DP-STATE"] ?? "").toUpperCase().trim();
+    const dpState = String(session[0]["DP-STATE"] ?? "").toUpperCase().trim();
     isFailActiveL = false;
     isFailActiveR = false;
     // L 세션

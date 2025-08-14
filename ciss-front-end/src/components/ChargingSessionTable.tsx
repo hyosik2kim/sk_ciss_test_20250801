@@ -1,13 +1,12 @@
 // components/ChargingSessionTable.tsx
-import { SCARErrorCodeEntry } from '@/types/monitoring_status';
 import React from 'react';
-type Entry = {
-  [key: string]: any;
-};
+type Entry = Record<string, unknown>;
 
 type ChargingSessionTableProps = {
   sessionEntries: Entry[];
 };
+
+const getString = (value: unknown): string => String(value ?? '');
 
 const ChargingSessionTable: React.FC<ChargingSessionTableProps> = ({ sessionEntries}) =>  {
   return (
@@ -47,29 +46,29 @@ const ChargingSessionTable: React.FC<ChargingSessionTableProps> = ({ sessionEntr
             {sessionEntries.map((item, idx) => (
                 <tr key={`${idx}-${item._id?.toString() || ''}`} className={item.isShortSession ? "text-red-500 bg-red-100" : ""}>
                 <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{idx + 1}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["DP-STATE"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-SEQ-NAME"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-EV-TAR-VOLT"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-EV-TAR-CURR"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-EV-MAX-POWER-LIMIT"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-SOC"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-EVSE-PRSNT-VOLT"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-EVSE-PRSNT-CURR"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-CP-STATUS"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-BULK-SOC"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING-FULL-SOC"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-SEQ-NAME"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-EV-TAR-VOLT"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-EV-TAR-CURR"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-EV-MAX-POWER-LIMIT"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-SOC"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-EVSE-PRSNT-VOLT"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-EVSE-PRSNT-CURR"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-CP-STATUS"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-BULK-SOC"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ING2-FULL-SOC"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{item["ERR-CODE"]}</td>
-                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{new Date(item.generatedAt).toLocaleString()}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["DP-STATE"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-SEQ-NAME"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-EV-TAR-VOLT"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-EV-TAR-CURR"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-EV-MAX-POWER-LIMIT"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-SOC"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-EVSE-PRSNT-VOLT"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-EVSE-PRSNT-CURR"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-CP-STATUS"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-BULK-SOC"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING-FULL-SOC"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-SEQ-NAME"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-EV-TAR-VOLT"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-EV-TAR-CURR"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-EV-MAX-POWER-LIMIT"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-SOC"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-EVSE-PRSNT-VOLT"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-EVSE-PRSNT-CURR"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-CP-STATUS"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-BULK-SOC"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ING2-FULL-SOC"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{getString(item["ERR-CODE"])}</td>
+                <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-900">{new Date(String(item.generatedAt)).toLocaleString()}</td>
               </tr>
             ))}
           </tbody>

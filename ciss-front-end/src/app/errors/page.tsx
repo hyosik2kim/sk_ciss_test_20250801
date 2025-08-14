@@ -149,7 +149,7 @@ export default function ErrorsPage() {
     const pageNumbers = [];
     const maxPageNumbersToShow = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbersToShow / 2));
-    let endPage = Math.min(totalPages, startPage + maxPageNumbersToShow - 1);
+    const endPage = Math.min(totalPages, startPage + maxPageNumbersToShow - 1);
 
     // 표시될 페이지 번호 개수가 maxPageNumbersToShow보다 적을 경우 시작 페이지 조정
     if (endPage - startPage + 1 < maxPageNumbersToShow) {
@@ -164,7 +164,6 @@ export default function ErrorsPage() {
 
   // 선택된 코드 상태도 여기로 끌어올림
 const [selectedCodes, setSelectedCodes] = useState<string[]>([]);
-const [fullErrorList, setFullErrorList] = useState<MonitoringEntry[]>([]);
 
 // 전체 에러 리스트 로딩 함수
 const fetchFullErrorList = useCallback(async () => {
@@ -178,7 +177,7 @@ const fetchFullErrorList = useCallback(async () => {
       0,   // limit
       true    // fetchAll=true
     );
-    setFullErrorList(allErrors);
+
     return allErrors;
   } catch (err) {
     console.error("전체 에러 목록 조회 실패:", err);

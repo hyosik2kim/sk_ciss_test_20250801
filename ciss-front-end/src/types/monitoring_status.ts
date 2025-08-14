@@ -4,7 +4,7 @@
  * MonitoringEntry 인터페이스 (MongoDB 문서 구조를 기반으로 함)
  * _id와 generatedAt 필드는 클라이언트 전송을 위해 string으로 직렬화됩니다.
  */
-export interface MonitoringEntry {
+export interface MonitoringEntry extends Record<string, unknown> {
   _id: string; // MongoDB의 ObjectId를 문자열로 변환하여 사용
   serialNo: string;
   "ERR-CODE"?: string; // 에러 코드 (있을 수도, 없을 수도 있음)
@@ -18,8 +18,6 @@ export interface MonitoringEntry {
   "CP2-PINS-SMID"?: string; // Charge Point 2 PINS SMID (오른쪽 충전 시도 ID)
   "CP-PINS-SESSION-ID"?: string; // Charge Point PINS Session ID (왼쪽 충전 세션 ID)
   "CP2-PINS-SESSION-ID"?: string; // Charge Point 2 PINS Session ID (오른쪽 충전 세션 ID)
-
-  [key: string]: any; // 다른 필드들도 포함될 수 있음을 나타냄 (유연성을 위해)
 }
 
 /**

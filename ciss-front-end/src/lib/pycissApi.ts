@@ -1,4 +1,5 @@
 import api from "./pyApiClient";
+import { SCARErrorCodeEntry } from "@/types/monitoring_status";
 
 export const getHealth = () => api.get<string>("/health");
 
@@ -26,7 +27,7 @@ export const getChargingSessions = (
   serialNos: string[] | null,
   startDate: Date | null,
   endDate: Date | null,
-  errorCodes?: any[]
+  errorCodes?: SCARErrorCodeEntry[]
 ) =>
   api
     .post("/monitoring/sessions", {

@@ -59,7 +59,8 @@ export default function ChargingDataPage() {
       // 충전 성공률은 "전체" 데이터로 계산!
       const stats = calculateChargingSuccessRate(allEntriesForStats);
       setChargingStats(stats);
-    } catch (err) {
+    } catch (err: unknown) {
+      console.error(err);
       setGlobalError("충전 통계를 불러오거나 계산하는 데 실패했습니다.");
     } finally {
       setLoading(false);

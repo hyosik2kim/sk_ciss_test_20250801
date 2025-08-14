@@ -6,7 +6,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { getChargingSessions } from '@/lib/pycissApi';
 import ChargingSessionTable from '@/components/ChargingSessionTable';
 import { SCARData, SCARErrorCodeEntry} from '@/types/monitoring_status';
-import { calculateSCAR } from '@/lib/analysis_utils';
+import { calculateSCAR, SessionRow } from '@/lib/analysis_utils';
 import SCARTable from '@/components/SCARTable';
 import SCARErrorCodeSidebar from '@/components/SCARErrorCodeSidebar';
 
@@ -19,8 +19,7 @@ export default function ChargingAnalysisPage() {
   const [endDate, setEndDate] = useState<Date | null>(null);
 
   // 데이터/상태
-  const [sessions, setSessions] = useState<any[][]>([]);
-  const [allRows, setAllRows] = useState<any[]>([]);
+  const [allRows, setAllRows] = useState<SessionRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [globalError, setGlobalError] = useState<string | null>(null);
   const [chargingStats, setChargingStats] = useState<SCARData | null>(null);
@@ -36,7 +35,6 @@ export default function ChargingAnalysisPage() {
     setLoading(true);
     setGlobalError(null);
     setAllRows([]);
-    setSessions([]);
     setCurrentPage(1);
 
     const filteredSerialNos = serialNos.filter(id => id.trim() !== '');
@@ -52,11 +50,11 @@ export default function ChargingAnalysisPage() {
         startDate,
         endDate,
         errorCodes
-      );
-      setSessions(data);
+      ) as SessionRow[][];
       setAllRows(data.flat());
       setChargingStats(calculateSCAR(data));
-    } catch (err) {
+    } catch (err: unknown) {
+      console.error(err);
       setGlobalError('세션 데이터를 불러오는 데 실패했습니다. 백엔드 연결 또는 쿼리 조건을 확인하세요.');
     } finally {
       setLoading(false);
@@ -65,7 +63,7 @@ export default function ChargingAnalysisPage() {
 
   // CSV 다운로드 핸들러
   const handleExportToCSV = () => {
-    const rows = allRows.flat ? allRows.flat() : allRows;
+    const rows = allRows;
     if (!rows || rows.length === 0) {
       alert('내보낼 데이터가 없습니다.');
       return;
@@ -102,7 +100,7 @@ export default function ChargingAnalysisPage() {
     const pageNumbers = [];
     const maxPageNumbersToShow = 5;
     let startPage = Math.max(1, currentPage - Math.floor(maxPageNumbersToShow / 2));
-    let endPage = Math.min(totalPages, startPage + maxPageNumbersToShow - 1);
+    const endPage = Math.min(totalPages, startPage + maxPageNumbersToShow - 1);
     if (endPage - startPage + 1 < maxPageNumbersToShow) {
       startPage = Math.max(1, endPage - maxPageNumbersToShow + 1);
     }
@@ -124,8 +122,8 @@ export default function ChargingAnalysisPage() {
   //});
   const [errorCodes, setErrorCodes] = useState<SCARErrorCodeEntry[]>([]);
   useEffect(() => {
-  const raw = localStorage.getItem("error-codes");
-  if (raw) setErrorCodes(JSON.parse(raw));
+    const raw = localStorage.getItem("error-codes");
+    if (raw) setErrorCodes(JSON.parse(raw));
   }, []);
   
   // errorCodes 변경 시 localStorage에 반영

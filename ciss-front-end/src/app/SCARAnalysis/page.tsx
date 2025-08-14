@@ -8,7 +8,7 @@ export default function AnalysisPage() {
   const [status, setStatus] = useState('')
   const [dstFiles, setDstFiles] = useState<string[]>([])
 
-  const callApi = async (endpoint: string, body?: any) => {
+  const callApi = async <T,>(endpoint: string, body?: Record<string, unknown>): Promise<T> => {
     /* blocked original fetch 250807
     const res = await fetch(`http://localhost:5000${endpoint}`, {
       method: 'POST',
@@ -23,44 +23,53 @@ export default function AnalysisPage() {
 
     return res.json()*/
     const res = await pyApi.post(endpoint, body)
-    return res.data
+    return res.data as T
   }
 
   const handleSelectFolder = async () => {
     try {
         console.log(folder)
-      const result = await callApi('/select_folder', { folder })
+      const result = await callApi<{ folder: string; fileCount: number }>(
+        '/select_folder',
+        { folder }
+      )
       setStatus(`📂 폴더 선택 완료: ${result.folder}, 파일 ${result.fileCount}개`)
-    } catch (err: any) {
-      setStatus(`❌ 폴더 선택 실패: ${err.message}`)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      setStatus(`❌ 폴더 선택 실패: ${message}`)
     }
   }
 
   const handleAnalyze = async () => {
     try {
-      const result = await callApi('/analyze')
+      const result = await callApi<{ analyzedCount: number; dstFiles?: string[] }>(
+        '/analyze'
+      )
       setStatus(`🔍 분석 완료: ${result.analyzedCount}개`)
       setDstFiles(result.dstFiles || [])
-    } catch (err: any) {
-      setStatus(`❌ 분석 실패: ${err.message}`)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      setStatus(`❌ 분석 실패: ${message}`)
     }
   }
 
   const handleCategorize = async () => {
     try {
-      const result = await callApi('/categorize')
+      await callApi<unknown>('/categorize')
       setStatus(`🗂️ 분류 완료`)
-    } catch (err: any) {
-      setStatus(`❌ 분류 실패: ${err.message}`)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      setStatus(`❌ 분류 실패: ${message}`)
     }
   }
 
   const handleSummarize = async () => {
     try {
-      const result = await callApi('/summarize')
+      await callApi<unknown>('/summarize')
       setStatus(`📊 요약 완료`)
-    } catch (err: any) {
-      setStatus(`❌ 요약 실패: ${err.message}`)
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err)
+      setStatus(`❌ 요약 실패: ${message}`)
     }
   }
 

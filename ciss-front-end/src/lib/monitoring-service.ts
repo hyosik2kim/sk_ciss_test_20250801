@@ -2,8 +2,8 @@
 
 import { ObjectId } from 'mongodb'; // ObjectId가 사용될 경우 필요
 
-//  기존 MonitoringEntry 인터페이스 유지 및 필드 추가 
-export interface MonitoringEntry {
+//  기존 MonitoringEntry 인터페이스 유지 및 필드 추가
+export interface MonitoringEntry extends Record<string, unknown> {
   _id?: ObjectId; // MongoDB에서 사용되는 실제 ObjectId 타입
   serialNo: string;
   "ERR-CODE"?: string; // Optional (원본 데이터에 따라 존재하지 않을 수 있음)
@@ -17,12 +17,11 @@ export interface MonitoringEntry {
   "CP2-PINS-SMID"?: string;    // 오른쪽 충전 시도 ID (선택적)
   "CP-PINS-SESSION-ID"?: string; // 왼쪽 충전 성공 세션 ID (선택적)
   "CP2-PINS-SESSION-ID"?: string; // 오른쪽 충전 성공 세션 ID (선택적)
-  [key: string]: any; // 인덱스 시그니처 (다른 필드들을 유연하게 허용)
 }
 
 //  클라이언트 컴포넌트로 전달하기 위한 직렬화된 MonitoringEntry 인터페이스 유지 및 필드 추가 
 // _id와 generatedAt 필드가 문자열로 변환되며, 새로운 ID 필드도 포함됩니다.
-export interface SerializedMonitoringEntry {
+export interface SerializedMonitoringEntry extends Record<string, unknown> {
   _id: string; // ObjectId가 string으로 직렬화됩니다.
   serialNo: string;
   "ERR-CODE"?: string;
@@ -36,7 +35,6 @@ export interface SerializedMonitoringEntry {
   "CP2-PINS-SMID"?: string;
   "CP-PINS-SESSION-ID"?: string;
   "CP2-PINS-SESSION-ID"?: string;
-  [key: string]: any; // 인덱스 시그니처 유지
 }
 
 // 기존 MonitoringStatistics 인터페이스 유지 
