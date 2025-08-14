@@ -7,7 +7,7 @@ RUN gradle build --no-daemon
 # Runtime stage
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY --from=build /app/build/libs/*.jar app.jar
+COPY --from=build /app/ciss-server/build/libs/*.jar app.jar
 
 # Runtime configuration
 ENV REDIS_HOST=redis \
