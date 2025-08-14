@@ -21,6 +21,6 @@ ENV JAVA_OPTS="" \
 # Copy the built JAR from the builder stage
 COPY --from=builder /workspace/ciss-api/build/libs/*.jar app.jar
 
-EXPOSE 8080
+EXPOSE 8081
 
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
