@@ -15,6 +15,7 @@ spec:
       containers:
       - name: ciss-python-scaranalysis
         image: ciss-python-scaranalysis:latest
+        imagePullPolicy: IfNotPresent   # ← 로컬 이미지 사용 (중요)
         ports:
         - containerPort: 5000
         env:

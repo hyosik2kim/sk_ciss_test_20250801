@@ -15,6 +15,7 @@ spec:
       containers:
       - name: ciss-batch
         image: ciss-batch:latest
+        imagePullPolicy: IfNotPresent   # ← 로컬 이미지 사용 (중요)
         ports:
         - containerPort: 8083
         env:
